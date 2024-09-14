@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>增加图书</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .back{
+            margin-top: 30px;
+            margin-left: 1100px;
+        }
+        .back button{
+            font-size: 18px;
+            cursor: pointer; 
+        }
+
+        form {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 45px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            fetch('http://localhost:8080/library/manager/select/book/category')
+                .then(response => response.json())
+                .then(data => {
+                    data = data.data
+                    var select = document.getElementById('category');
+                    data.forEach(function (item) {
+                        var option = document.createElement('option');
+                        option.text = item.category;
+                        option.value = item.category_id;
+                        select.add(option);
+                    });
+                });
+
+            document.getElementById('bookForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                var category = document.getElementById('category').value;
+                var book = document.getElementById('book').value;
+                var books = document.getElementById('books').value;
+                var author = document.getElementById('author').value;
+                var press = document.getElementById('press').value;
+
+                var book_money0 = document.getElementById('book_money').value;
+                var book_money = parseInt(book_money0, 10);
+                
+                //当时有报错Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "book_money"
+                //应该是多余了，但是先不删了
+
+                var bookshelf = document.getElementById('bookshelf').value;
+
+                if (!category || !book || !books || !author || !press || !book_money || !bookshelf) {
+                    alert("所有字段都必须填写！");
+                } else {
+
+                    //废案版本服务端请求已更改，json变为表单信息，发送请求需要改成body：formdata（0527）
+
+                    var formdata = new FormData();
+                    formdata.append("category", category);
+                    formdata.append("book", book);
+                    formdata.append("books", books.toString());
+                    formdata.append("author", author);
+                    formdata.append("press", press);
+                    formdata.append("book_money", book_money);
+                    formdata.append("bookshelf", bookshelf);
+                    formdata.append("file", document.getElementById('book_photo').files[0]);
+
+
+                    fetch('http://localhost:8080/library/manager/book/insert', {
+                        method: 'post',
+                        body: formdata
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.data);
+                            } else {
+                                // alert(data.message);
+                                alert("添加失败！");
+                            }
+                        }).catch((error) => {
+                            console.error('Error:', error);
+                        });
+                }
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    
+    <div class="back">
+        <button onclick="history.back()">返回</button>
+    </div>
+        
+    <form id="bookForm" enctype="multipart/form-data">
+        <label for="category">类别:</label>
+        <select id="category" name="category"></select>
+        <label for="book">书名:</label>
+        <input type="text" id="book" name="book">
+        <label for="books">书籍数量:</label>
+        <input type="number" id="books" name="books">
+        <label for="author">作者名字:</label>
+        <input type="text" id="author" name="author">
+        <label for="press">出版社:</label>
+        <input type="text" id="press" name="press">
+        <label for="book_photo">书籍照片:</label>
+        <input type="file" id="book_photo" name="book_photo">
+        <label for="book_money">书籍价值:</label>
+        <input type="number" id="book_money" name="book_money">
+        <label for="bookshelf">书架位置:</label>
+        <input type="text" id="bookshelf" name="bookshelf">
+        <input type="submit" value="提交">
+    </form>
+</body>
+
+</html>
+
+<!-- 0529版本 -->

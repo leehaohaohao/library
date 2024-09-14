@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.ManagerDao">
+    <select id="login_confirm" resultType="String">
+        select password from t_manager where account_num = #{account_num} and isdelete =0
+    </select>
+    <select id="select" resultType="Manager">
+        select * from t_manager
+                    where account_num = #{account_num} and isdelete =0
+    </select>
+    <select id="select_by_id" resultType="Manager">
+        select * from t_manager
+        where manager_id = #{manager_id} and isdelete =0
+    </select>
+    <update id="update">
+        update t_manager
+        <set>
+            <if test="password!=null and password!='' ">
+                password =  #{password},
+            </if>
+            <if test="email!=null and email!='' ">
+                email = #{email},
+            </if>
+            <if test="name!=null and name!='' ">
+                name = #{name},
+            </if>
+            <if test="telephone_num!=null and telephone_num!='' ">
+                telephone_num = #{telephone_num},
+            </if>
+            <if test="gender!=null and gender!='' ">
+                gender = #{gender},
+            </if>
+            <if test="photo!=null and photo!='' ">
+                photo = #{photo},
+            </if>
+        </set>
+        where manager_id = #{manager_id}
+    </update>
+    <select id="select_manager_id" resultType="Long">
+        select manager_id from t_manager where account_num=#{account_num} and isdelete =0
+    </select>
+</mapper>

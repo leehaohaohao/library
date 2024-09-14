@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            display: flex;
+            width: 80vw;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .bc {
+            position: relative;
+            width: 80vw;
+            height: 100vh;
+            min-width: 1000px;
+            /* background-color: rgba(255, 255, 255, 0.999); */
+        }
+
+        .borrow {
+            position: relative;
+            width: 75vw;
+            height: 83vh;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            margin: 1vw;
+            overflow-y: scroll;
+
+        }
+
+
+        .borrow1 {
+            height: 20vh;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+
+        .font {
+            position: relative;
+            color: black;
+            line-height: 22px;
+            width: 450px;
+            display: inline-block;
+        }
+
+
+        button {
+            display: block;
+            font-size: 1vw;
+            width: 5vw;
+            height: 3.2vh;
+            margin: auto;
+            margin-top: 0.5vh;
+            border-width: 0.1vw;
+            background-color: #FFFF;
+        }
+
+        button:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #borrowTable {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 1vw;
+        }
+
+        #borrowTable img {
+            width: 5vw;
+            height: 10vh;
+            display: block;
+            margin: auto;
+        }
+
+        #borrowTable th,
+        #borrowTable td {
+            border: 0.1vw solid black;
+            height: 5vh;
+        }
+
+        #borrowTable tr:nth-child(odd) {
+            background-color: white;
+            /* 设置奇数行背景色为白色 */
+        }
+
+        #borrowTable tr:nth-child(even) {
+            background-color: rgba(146, 192, 155, 0.999);
+            /* 设置偶数行背景色为灰色 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="space-unit" style="color:#FFFF;">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel">
+                        <a class="font1" href="manger_book_list.html">图书列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manger_student_list.html">学生列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manger_teacher_list.html">教师列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manager_manager_list.html">管理员列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="maborrow.html">还书处理</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="mapay.html">罚款处理</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="checkpay.html">查看罚款</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content3">
+                <div class="bc">
+                    <div class="borrow">
+                        <table id="borrowTable">
+                            <tbody>
+                                <tr>
+                                    <th>图书封面</th>
+                                    <th>图书编号</th>
+                                    <th>书名</th>
+                                    <th>借阅人学号</th>
+                                    <th>借阅人</th>
+                                    <th>书架编号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</body>
+
+</html>
+<script>
+
+    fetch(`http://localhost:8080/library/manager/borrowed/return?page_num=`, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            var table = document.getElementById("borrowTable");
+            // 清空表格
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            var pages = data.data.pages;
+            var data = data.data;
+
+            // 填充新的数据
+            for (var i = 0; i < data.length; i++) {
+                var row = table.insertRow(-1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                var cell6 = row.insertCell(5);
+                var cell7 = row.insertCell(6);
+                cell1.style.textAlign = "center";
+
+                cell1.innerHTML = '<img src="' + data[i].book.book_photo + '" class="book-photo"  alt=""/>';  // 显示图片
+                cell2.innerHTML = data[i].book_id;
+                cell3.innerHTML = data[i].book.book;
+                cell4.innerHTML = data[i].user.user_num;
+                cell5.innerHTML = data[i].user.name;
+                cell6.innerHTML = data[i].book.bookshelf;
+                cell7.innerHTML = '<button onclick="agree(\'' + data[i].borrow_id + '\')">批准</button>' +
+                    '<button onclick="noagree(\'' + data[i].borrow_id + '\')">有损</button>';
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    function agree(borrow_id) {
+        fetch(`http://localhost:8080/library/manager/borrowed/return/agree?borrow_id=${borrow_id}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error' + error);
+            });
+    }
+    function noagree(borrow_id) {
+        fetch(`http://localhost:8080/library/manager/borrowed/return/lost?borrow_id=${borrow_id}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error' + error);
+            });
+    }
+
+</script>

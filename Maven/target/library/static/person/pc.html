@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: no-repeat;
+            background-size: cover;
+            position: relative;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100%;
+            /* 设置内容宽度 */
+            height: 75px;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            /* height: 100%; */
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            margin: 20px;
+            margin-left: 20px;
+            width: 20%;
+
+        }
+
+        .content3 {
+            width: 70%;
+        }
+
+        .menu {
+            position: absolute;
+            top: 13%;
+            left: 2%;
+            width: 13%;
+            height: 84%;
+            border-radius: 10px;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .book {
+            position: absolute;
+            top: 10%;
+            left: 25%;
+            width: 80%;
+            height: 90%;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            max-width: 60%;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            height: 60px;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .user-block {
+            position: relative;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        .user-block p {
+            font-size: 15px;
+            line-height: 20px;
+            text-align: center;
+            margin-bottom: 4px;
+            color: #efeff2;
+
+        }
+
+        .head-img {
+            display: block;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            margin: 40px auto 20px;
+            position: relative;
+            z-index: 0;
+        }
+
+
+        .head-img:hover {
+            cursor: pointer;
+
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .title {
+            position: relative;
+            top: 5%;
+            height: 88px;
+            line-height: 88px;
+            border-bottom: 1px solid #4b4b4b;
+            display: flex;
+            align-items: center;
+            /* 垂直居中内容 */
+        }
+
+        .title img {
+            width: 100px;
+            /* 设置图片宽度 */
+            height: auto;
+            margin-right: 10px;
+            /* 调整图片和文本之间的间距 */
+        }
+
+        .title span {
+            color: #2b333b;
+            font-size: 20px;
+        }
+
+        .tab-menu {
+            position: relative;
+            top: calc(90% + 10px);
+            left: -10%;
+            height: 68px;
+            line-height: 60px;
+            width: 500px;
+        }
+
+        .tab-menu li {
+            list-style-type: none;
+            display: inline-block;
+            /* 让 li 元素横向排列 */
+            padding-top: 10px;
+            margin-right: 48px;
+            /* 设置合适的右边距 */
+            color: #2b333b;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-menu li:hover {
+            border-bottom: 3px solid red;
+            /* 鼠标悬停时底部出现红色线 */
+        }
+
+        .infodiv {
+            position: relative;
+            top: 25%;
+            left: 5%;
+        }
+
+        .info_ct {
+            display: flex;
+            margin-bottom: 20px;
+            bottom: 20%;
+            left: 20%;
+            line-height: 35px;
+            font-size: 15px;
+            color: #181E33;
+        }
+
+        .wid62 {
+            display: inline-block;
+            width: 80px;
+        }
+
+        .grey {
+            position: relative;
+            background-color: rgba(216, 212, 212, 0.3);
+            width: 100%;
+            height: 30px;
+            top: 15%;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="color:#FFFF ;">
+
+        <div class="content">
+            <div class="space-unit">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+                    <div class="user-block">
+                        <a href="pc.html">
+                            <img class="head-img" src="" alt="头像">
+                        </a>
+                        <p class="user-name"></p>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="list.html">图书馆藏</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="borrowed.html">我的借阅</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="content.html">图书论坛</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="bookRank.html">图书排行</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="pc.html">个人中心</a>
+                    </div>
+                </div>
+            </div>
+            <div class="content3">
+                <div class="title">
+                    <img src="https://i.chaoxing.com/nervous/images/tongxunlu.png" alt="账号管理">
+                    <span>账号管理</span>
+                    <div class="tab-menu">
+                        <ul>
+                            <li onclick="window.location.href='pc.html'">基本信息</li>
+                            <li onclick="window.location.href='home.html'">修改密码</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="infodiv">
+                    <div class="info_ct">
+                        <span class="wid62">账号：</span>
+						<span id="user_account_num"></span>
+                    </div>
+                    <div class="info_ct">
+                        <span class="wid62">电话：</span>
+						<span id="telephone_num"></span>
+                    </div>
+                    <div class="info_ct">
+                        <span class="wid62">性别：</span>
+						<span id="gender"></span>
+                    </div>
+					<div class="info_ct">
+					    <span class="wid62">电子邮件：</span>
+						<span id="email"></span>
+					</div>
+					<div class="info_ct">
+					    <span class="wid62">用户类别：</span>
+						<span id="user_category"></span>
+					</div>
+					<div class="info_ct">
+					    <span class="wid62">所欠费用：</span>
+						<span id="fee_all"></span>
+					</div>
+					<div class="info_ct">
+					    <span class="wid62">用户编号：</span>
+						<span id="user_num"></span>
+					</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<script>
+    window.onload = function() {
+        fetch('/library/filter1/person/select')
+            .then(response => response.json())
+            .then(data => {
+                if(data.success){
+                    data=data.data;
+                    document.getElementById('user_account_num').textContent = data.user_account_num;
+                    document.getElementById('telephone_num').textContent = data.telephone_num;
+                    document.getElementById('gender').textContent = data.gender;
+                    document.getElementById('email').textContent = data.email;
+                    document.getElementById('user_category').textContent = data.userCategory.user_category;
+                    document.getElementById('fee_all').textContent = data.fee_all;
+                    document.getElementById('user_num').textContent = data.user_num;
+                }else{
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        fetch('/library/filter1/person/baseInfo')
+            .then(response => response.json())
+            .then(data=>{
+                if(data.success){
+                    data=data.data;
+                    document.getElementsByClassName('user-name')[0].textContent = data.name;
+                    document.getElementsByClassName('head-img')[0].src=data.user_photo;
+                }else{
+                    document.getElementsByClassName('user-name')[0].textContent = "用户";
+                    document.getElementsByClassName('head-img')[0].src="http://photo.chaoxing.com/p/237651394_80?t=0.1072067754265591?t=0.3252966709895755";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+
+</html>

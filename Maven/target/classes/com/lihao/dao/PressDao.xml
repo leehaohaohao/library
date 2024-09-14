@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.PressDao">
+    <select id="select" resultType="Press">
+        select * from t_press where press_id = #{press_id}
+    </select>
+    <select id="select_press" resultType="Press">
+        select * from t_press where press=#{press}
+    </select>
+
+</mapper>

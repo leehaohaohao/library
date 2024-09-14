@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.FeeDao">
+    <insert id="insert">
+        insert into t_fee (fee_category_id,fee_state_id,user_id,fee_num,book)
+            value(#{fee_category_id},#{fee_state_id},#{user_id},#{fee_num},#{book})
+    </insert>
+    <resultMap id="fee" type="Fee">
+        <result property="fee_id" column="fee_id"/>
+        <result property="fee_num" column="fee_num"/>
+        <result property="book" column="book"/>
+        <association property="feeCategory"
+                     select="com.lihao.dao.FeeCategoryDao.select"
+                     column="fee_category_id"/>
+        <association property="feeState"
+                     select="com.lihao.dao.FeeStateDao.select"
+                     column="fee_state_id"/>
+        <association property="user"
+                     select="com.lihao.dao.UserDao.select_by_id"
+                     column="user_id"/>
+    </resultMap>
+    <select id="select_by_user_id" resultMap="fee">
+        select * from t_fee where user_id = #{user_id} and fee_state_id = 3
+    </select>
+    <select id="select_fee_num" resultType="BigDecimal">
+        select fee_num from t_fee where user_id = #{user_id} and fee_state_id = 3
+    </select>
+    <select id="select_unpaid" resultMap="fee">
+        select * from t_fee where fee_state_id = #{fee_state_id}
+    </select>
+    <select id="select_by_fee_id" resultMap="fee">
+        select * from t_fee where fee_id = #{fee_id}
+    </select>
+    <update id="update_fee_state_id">
+        update t_fee
+        <set>
+            <if test="feeState!=null and feeState.fee_state_id!=null">
+                fee_state_id = #{feeState.fee_state_id},
+            </if>
+        </set>
+        where fee_id = #{fee_id}
+    </update>
+</mapper>

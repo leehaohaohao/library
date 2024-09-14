@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.AuthorDao">
+    <select id="select" resultType="Author">
+        select * from t_author where author_id = #{author_id}
+    </select>
+    <select id="select_author" resultType="Author">
+        select * from t_author where author=#{author}
+    </select>
+</mapper>

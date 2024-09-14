@@ -1,0 +1,43 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    //Deploy插件热部署所需配置信息
+    "deploy": {
+        "packages": [
+            {
+                "name": "web app",
+                "description": "",
+                "files": [
+                 "src/main/webapp/*",
+                 "src/main/webapp/*/*",
+                 "src/main/webapp/**",
+                ], 
+                "exclude": [
+                    "src/main/webapp/test/*"
+                ],
+                "deployOnSave": true,
+                "useTargetList": true,
+                "button": {
+                 "text": "热部署",
+                 "tooltip": "点击部署",
+                 "targets": [ "HOTSITE" ]
+             },
+   
+            }
+        ],
+        "targets": [
+            {
+                "type": "local",
+                "name": "HOTSITE",
+                "description": "配置指向编译目录",
+                "dir": "target/TEST/",// 指向编译后的文件路径
+                "mappings": [
+                    {
+                        "source": "src/main/webapp",
+                        "isRegEx": false,
+                        "target": "/"
+                    }
+                ]
+            }
+        ]
+       },
+}

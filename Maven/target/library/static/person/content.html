@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>主界面</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				background: no-repeat;
+				background-size: cover;
+				position: relative;
+				background-position: top;
+				display: flex;
+
+			}
+
+			.content {
+				width: 100%;
+				height: 100%;
+				background-color: rgba(97, 180, 114, 0.999);
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			}
+			
+			.post_content {
+				position: absolute;
+				top: 13%;
+				left: 22%;
+				width: 68%;
+				background-color: rgba(97, 180, 114, 0.999);
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			}
+			
+			.h_content {
+				position: absolute;
+				top: 43%;
+				left: 22%;
+				width: 68%;
+                height: 55%;
+				background-color: rgba(97, 180, 114, 0.999);
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+				overflow: scroll;
+				
+			}
+
+			.left {
+				position: absolute;
+				top: 13%;
+				left: 2%;
+				width: 13%;
+				height: 84%;
+				border-radius: 10px;
+				background-color: rgba(97, 180, 114, 0.999);
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+				/* 设置侧边栏颜色 */
+			}
+
+			.content-1 {
+				position: absolute;
+				background-color: rgb(255, 255, 255);
+				top: 10%;
+				width: 100%;
+				height: 90%;
+			}
+
+			.content-2 {
+				position: absolute;
+				top: 5%;
+				left: 35%;
+			}
+
+			.user-block {
+				position: relative;
+				top: 10%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				overflow: hidden;
+				padding: 40px;
+			}
+
+			.user-block p {
+				font-size: 15px;
+				line-height: 20px;
+				text-align: center;
+				margin-bottom: 4px;
+				color: #efeff2;
+
+			}
+
+			.head-img {
+				display: block;
+				width: 75px;
+				height: 75px;
+				border-radius: 50%;
+				margin: 40px auto 20px;
+			}
+
+			.content .space-unit {
+				/* width: 220px; */
+				float: left;
+				height: 80px;
+				display: flex;
+				align-items: center;
+				max-width: 60%;
+				margin-left: 5%
+			}
+
+			.sel {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 20px;
+				height: 60px;
+				width: auto;
+				transition: background-color 0.3s;
+			}
+
+			.sel_selected {
+				/*右栏目中被选中的图书馆藏，样式改为鼠标悬停样式*/
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 20px;
+				height: 60px;
+				width: auto;
+				transition: background-color 0.3s;
+				background-color: rgba(74, 135, 86, 0.999);
+			}
+
+			.sel:hover {
+				background-color: rgba(74, 135, 86, 0.999);
+			}
+
+			a.font1 {
+				color: #FFFFFF;
+				font-weight: bold;
+				font-size: large;
+			}
+
+
+			#search {
+				width: 600px;
+				/* 设置搜索框宽度 */
+				height: 40px;
+				/* 设置搜索框高度 */
+				font-size: 16px;
+				/* 设置文字大小 */
+				border-radius: 10px;
+			}
+
+			#submit-button {
+				border: none;
+				/* 设置边框样式为红色实线，可以根据需求调整颜色和样式 */
+				padding: 10px 20px;
+				/* 设置内边距，调整按钮大小 */
+			}
+
+			#submit-button:hover {
+				background-color: antiquewhite;
+			}
+
+			.forum-post {
+				background-color: #fff;
+				margin: 20px;
+				padding: 20px;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				border: 2px solid #f00;
+			}
+
+			.forum-post .username {
+				font-weight: bold;
+			}
+
+			.forum-post .publish-date {
+				color: #888;
+				margin-bottom: 10px;
+			}
+
+			.forum-post .content {
+				margin-bottom: 10px;
+			}
+
+			.forum-post .like-num {
+				color: #f00;
+				cursor: pointer;
+			}
+
+			.new-post {
+				margin: 20px;
+				padding: 20px;
+				background-color: #fff;
+				border-radius: 5px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			.new-post textarea {
+				width: 100%;
+				min-height: 100px;
+				margin-bottom: 10px;
+			}
+
+			.new-post button {
+				padding: 10px 20px;
+				background-color: #4CAF50;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+			.pagination {
+				text-align: center;
+				margin: 20px;
+			}
+
+			.pagination button {
+				padding: 5px 10px;
+				margin: 0 5px;
+				border: none;
+				background-color: #4CAF50;
+				color: white;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content" style="color: #FFFFFF;">
+			<div class="space-unit">
+				<h2>图书管理系统</h2>
+			</div>
+			<div class="content-1">
+				<div class="content-2">
+				</div>
+			</div>
+			<div class="left">
+				<div class="user-block">
+					<img class="head-img"
+						src="">
+					<p class="user-name"></p>
+				</div>
+				<div class="sel">
+					<a class="font1" href="list.html">图书馆藏</a>
+				</div>
+				<div class="sel">
+					<a class="font1" href="borrowed.html">我的借阅</a>
+				</div>
+				<div class="sel_selected">
+					<a class="font1" href="content.html">图书论坛</a>
+				</div>
+				<div class="sel">
+					<a class="font1" href="bookRank.html">图书排行</a>
+				</div>
+				<div class="sel">
+					<a class="font1" href="pc.html">个人中心</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="post_content">
+			<div class="new-post">
+				<textarea id="content" placeholder="输入你的内容..."></textarea>
+				<button id="publish">发布</button>
+			</div>
+		</div>
+		<div class="h_content">
+			<div id="forum">
+			</div>
+			<div class="pagination" id="pagination">
+			</div>
+		</div>
+	</body>
+
+	<script>
+		window.onload = function (){
+			fetch('/library/filter1/person/baseInfo')
+					.then(response => response.json())
+					.then(data=>{
+						if(data.success){
+							data=data.data;
+							document.getElementsByClassName('user-name')[0].textContent = data.name;
+							document.getElementsByClassName('head-img')[0].src=data.user_photo;
+						}else{
+							document.getElementsByClassName('user-name')[0].textContent = "用户";
+							document.getElementsByClassName('head-img')[0].src="http://photo.chaoxing.com/p/237651394_80?t=0.1072067754265591?t=0.3252966709895755";
+						}
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+		}
+		var forumDiv = document.getElementById('forum');
+		var paginationDiv = document.getElementById('pagination');
+		var contentInput = document.getElementById('content');
+		var publishButton = document.getElementById('publish');
+		var currentPage = 1;
+
+		function updateLike(contentId, likeNumDiv, isLiked) {
+			var url = isLiked ? '/library/filter1/content/like/decrease' : '/library/filter1/content/like/increase';
+			fetch(`${url}?content_id=${contentId}`, {
+					method: 'GET'
+				})
+				.then(response => response.json())
+				.then(data => {
+					if(data.success){
+						data=data.data;
+						likeNumDiv.textContent = '点赞数: ' + data.like_num;
+						likeNumDiv.isLiked = !isLiked;
+					} else {
+						alert(data.message);
+					}
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+		}
+
+		function loadPosts(page_num) {
+			forumDiv.innerHTML = '';
+			fetch(`/library/filter1/content/selectAll?page_num=${page_num}`)
+				.then(response => response.json())
+				.then(data => {
+					if(data.success){
+						data=data.data;
+						var posts = data.list;
+						var pages = data.pages;
+						for (var i = 0; i < posts.length; i++) {
+							(function(i) { // 立即执行函数，创建新的作用域
+								var post = posts[i];
+								var postDiv = document.createElement('div');
+								postDiv.className = 'forum-post';
+
+								var usernameDiv = document.createElement('div');
+								usernameDiv.className = 'name';
+								usernameDiv.textContent = post.user.name;
+								postDiv.appendChild(usernameDiv);
+
+								var contentDiv = document.createElement('div');
+								contentDiv.className = 'content';
+								contentDiv.textContent = post.content;
+								postDiv.appendChild(contentDiv);
+
+								var publishDateDiv = document.createElement('div');
+								publishDateDiv.className = 'publish-date';
+								publishDateDiv.textContent = post.publish_date;
+								postDiv.appendChild(publishDateDiv);
+
+								var likeNumDiv = document.createElement('div');
+								likeNumDiv.className = 'like-num';
+								likeNumDiv.textContent = '点赞数: ' + post.like_num;
+								likeNumDiv.isLiked = false;
+								likeNumDiv.addEventListener('click', function() {
+									updateLike(post.content_id, likeNumDiv, likeNumDiv.isLiked);
+									likeNumDiv.style.color = likeNumDiv.isLiked ? '#f00' : '#0f0';
+								});
+								postDiv.appendChild(likeNumDiv);
+
+								forumDiv.appendChild(postDiv);
+							})(i);
+						}
+
+						// 动态生成页码
+						paginationDiv.innerHTML = '';
+						for (let i = 1; i <= pages; i++) {
+							var pageButton = document.createElement('button');
+							pageButton.textContent = i;
+							if (i === page_num) {
+								pageButton.style.backgroundColor = '#0000FF'; // 高亮显示当前页码
+							}
+							pageButton.addEventListener('click', function() {
+								currentPage = i;
+								loadPosts(currentPage);
+							});
+							paginationDiv.appendChild(pageButton);
+						}
+					}else{
+						alert(data.message);
+					}
+				})
+				.catch(error => console.error('Error:', error));
+		}
+
+		publishButton.addEventListener('click', function() {
+			var content = contentInput.value.trim();
+			if (content) {
+				var now = new Date();
+				var publish_date = now.toLocaleString('zh-CN', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+					hour: '2-digit',
+					minute: '2-digit',
+					second: '2-digit'
+				});
+				fetch(`/library/filter1/content/insert?content=${content}&publish_date=${publish_date}`, {
+						method: 'GET'
+					})
+					.then(response => response.json())
+					.then(data => {
+						if(data.success){
+							alert(data.data);
+							contentInput.value = '';
+							loadPosts(currentPage);
+						}else{
+							alert(data.message);
+						}
+					})
+					.catch((error) => {
+						console.error('Error:', error);
+					});
+			}
+		});
+
+		loadPosts(currentPage);
+	</script>
+
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.BorrowDao">
+
+    <insert id="insert">
+        insert into t_borrow (borrow_id,borrow_date,borrow_final_date,book_id,user_category_id,user_id,book_state_id)
+        values (null,#{borrow_date},#{borrow_final_date},#{book_id},#{user_category_id},#{user_id},#{book_state_id})
+    </insert>
+    <resultMap id="select_book_borrowed_all" type="BookBorrow">
+        <result property="borrow_id" column="borrow_id"/>
+        <result property="borrow_date" column="borrow_date"/>
+        <result property="borrow_final_date" column="borrow_final_date"/>
+        <result property="book_return_date" column="book_return_date"/>
+        <result property="book_return_photo" column="book_return_photo"/>
+        <association property="book"
+                     select="com.lihao.dao.BookDao.select_by_id"
+                     column="book_id"/>
+        <association property="user"
+                     select="com.lihao.dao.UserDao.select_by_id"
+                     column="user_id"/>
+        <association property="userCategory"
+                     select="com.lihao.dao.UserCategoryDao.select"
+                     column="user_category_id"/>
+        <association property="bookState"
+                     select="com.lihao.dao.BookStateDao.select_by_id"
+                     column="book_state_id"/>
+        <association property="bookReturnState"
+                     select="com.lihao.dao.BookReturnStateDao.select"
+                     column="return_state_id"/>
+    </resultMap>
+    <sql id="select_borrow_all">borrow_id,borrow_date,borrow_final_date,book_id,user_category_id,user_id,book_state_id</sql>
+    <select id="select_book_borrowed_all" resultMap="select_book_borrowed_all">
+        select *
+            from t_borrow
+            where user_id = #{user_id} and book_state_id != 1 and book_state_id !=5
+    </select>
+    <resultMap id="select_book_borrowed_history" type="BookBorrow">
+        <result property="borrow_id" column="borrow_id"/>
+        <result property="borrow_date" column="borrow_date"/>
+        <result property="book_return_date" column="book_return_date"/>
+        <association property="book"
+                     select="com.lihao.dao.BookDao.select_by_id"
+                     column="book_id"/>
+    </resultMap>
+    <select id="select_book_borrowed_history" resultMap="select_book_borrowed_history">
+        select borrow_id,borrow_date,book_return_date,book_id from t_borrow where user_id = #{user_id} and book_state_id=1
+    </select>
+    <select id="select_book_borrowed" resultMap="select_book_borrowed_all">
+        select *
+        from t_borrow
+        where borrow_id = #{borrow_id}
+    </select>
+    <select id="bookReturn" resultMap="select_book_borrowed_all">
+        select *
+        from t_borrow
+        where book_state_id = 5 and return_state_id = 2
+    </select>
+
+    <select id="nums" resultType="BorrowNumsBean">
+        select u.user_id id,u.`name`,u.user_account_num account,g.user_category category,count(1) nums
+        from t_borrow b
+        inner join t_user u on u.user_id = b.user_id
+        inner join t_user_category g on u.user_category_id = g.user_category_id
+        GROUP BY u.user_id,u.`name`,u.user_account_num,g.user_category
+        order by nums desc
+    </select>
+    <update id="update_book_state_id">
+        update t_borrow set book_state_id = #{book_state_id} where borrow_id = #{borrow_id}
+    </update>
+
+    <update id="update_book_return">
+        update t_borrow
+            <set>
+                <if test="book_state_id!=null and book_state_id!=''">
+                    book_state_id = #{book_state_id} ,
+                </if>
+                <if test="book_return_date!=null">
+                    book_return_date = #{book_return_date} ,
+                </if>
+                <if test="book_return_photo!=null and book_return_photo!=''">
+                    book_return_photo = #{book_return_photo} ,
+                </if>
+                <if test="return_state_id!=null and return_state_id!=''">
+                    return_state_id = #{return_state_id}
+                </if>
+            </set>
+        where borrow_id = #{borrow_id}
+    </update>
+
+    <update id="update_borrow_final_date">
+        update t_borrow set borrow_final_date = #{borrow_final_date} where borrow_id = #{borrow_id}
+    </update>
+</mapper>

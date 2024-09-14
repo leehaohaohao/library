@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            width: 80vw;
+            height: 84.5vh;
+            margin-right: 4vw;
+            overflow-y: scroll;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .bc {
+            position: flex;
+            width: 80vw;
+            height: 100vh;
+            min-width: 1000px;
+            flex-direction: column;
+            /* background-color: rgba(255, 255, 255, 0.999); */
+        }
+
+        .font {
+            position: relative;
+            color: black;
+            line-height: 22px;
+            width: 450px;
+            display: inline-block;
+        }
+
+        /* button {
+            display: block;
+            font-size: 1vw;
+            width: 5vw;
+            height: 3.2vh;
+            margin: auto;
+            margin-top: 0.5vh;
+            border-width: 0.1vw;
+            background-color: #FFFF;
+        } */
+
+        
+
+
+
+        .user-block {
+            position: relative;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        .head-img {
+            display: block;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            margin: 40px auto 20px;
+            position: relative;
+            z-index: 0;
+        }
+
+
+        #search {
+            border-radius: 5px;
+            position: relative;
+            top: 16%;
+            left: 3%;
+            width: 700px;
+            height: 47px;
+        }
+
+        input[type="submit"] {
+            position: relative;
+            top: calc(90% - 50px);
+            /* 调整按钮距离容器顶部的距离 */
+            left: calc(5% + 50px);
+            /* 调整按钮距离容器左侧的距离 */
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            height: 50px;
+            width: 90px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .book {
+            display: flex;
+            /* 将 .book 设置为 Flex 容器 */
+            flex-wrap: wrap;
+            /* 允许项目自动换行 */
+            justify-content: space-between;
+            /* 均匀分布项目 */
+            width: 100%;
+            height: 80%;
+            top: 5%;
+            position: relative;
+        }
+
+
+        .page-button {
+            width: 40px;
+            /* 设置按钮宽度 */
+            height: 40px;
+            margin: 20px;
+            background-color: rgba(97, 180, 114, 0.999);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-button:hover {
+            background-color: #45a049;
+        }
+
+        .font {
+            color: #45a049;
+            font-size: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            color: #000;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(146, 192, 155, 0.999);
+        }
+        #searchBox {
+            width: 80%;
+            box-sizing: border-box;
+            font-size: 16px;
+            padding: 10px 20px 10px 40px;
+            border: 1px solid #000;  /* 添加边框 */
+            margin-bottom: 10px;
+        }
+        .book-photo {
+            width: 100px;  /* 设置图片的宽度 */
+            height: 100px;  /* 设置图片的高度 */
+            object-fit: fill;  /* 设置图片的填充方式 */
+        }
+        .pagination{
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container" style="color:#FFFF ;">
+        <div class="content">
+            <div class="space-unit">
+                <h2>图书管理系统(管理员模式)</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel">
+                        <a class="font1" href="manger_book_list.html">图书列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manger_student_list.html">学生列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manger_teacher_list.html">教师列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="manager_manager_list.html">管理员列表</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="maborrow.html">还书处理</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="mapay.html">罚款处理</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="checkpay.html">查看罚款</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content3">
+                <input type="text" id="searchBox" placeholder="搜索图书...">
+                <button onclick="searchFunction()">搜索</button>
+                <a href="manger_book_insert.html"><button>增加图书</button></a>
+                <button onclick="deleteSelectedBooks()">删除选中图书</button>
+                <table id="bookTable">
+                    <tr>
+                        <th>Select</th>
+                        <th>Book ID</th>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Press</th>
+                        <th>Category</th>
+                        <th>Book Photo</th>
+                        <th>Bookshelf</th>
+                        <th>Action</th>
+                    </tr>
+                </table>
+                <div class="pagination" id="pagination">
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</body>
+<script>
+    var currentPage = 1;  // 当前页码
+    var paginationDiv = document.getElementById('pagination');
+    var selectedBooks = [];  // 选中的图书
+    window.onload = function() {
+        searchFunction();
+    }
+
+    function searchFunction() {
+        var input = document.getElementById("searchBox");
+        var filter = input.value;
+        // 发送搜索请求到后端
+        fetch(`http://localhost:8080/library/filter1/book/list/search?query=${filter}&page_num=${currentPage}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                var table = document.getElementById("bookTable");
+                // 清空表格
+                while (table.rows.length > 1) {
+                    table.deleteRow(1);
+                }
+                var pages=data.data.pages;
+                var data=data.data;
+                // 填充新的数据
+                for (var i = 0; i < data.list.length; i++) {
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    var cell6 = row.insertCell(5);
+                    var cell7 = row.insertCell(6);
+                    var cell8 = row.insertCell(7);
+                    var cell9 = row.insertCell(8);
+                    cell1.innerHTML = '<input type="checkbox" id="' + data.list[i].book_id + '" name="selectedBook" value="' + data.list[i].book_id + '">';
+                    cell2.innerHTML = data.list[i].book_id;
+                    cell3.innerHTML = data.list[i].book;
+                    cell4.innerHTML = data.list[i].author.author;
+                    cell5.innerHTML = data.list[i].press.press;
+                    cell6.innerHTML = data.list[i].category.category;
+                    cell7.innerHTML = '<img src="' + data.list[i].book_photo + '" class="book-photo"  alt=""/>';  // 显示图片
+                    cell8.innerHTML = data.list[i].bookshelf;
+                    cell9.innerHTML = '<button onclick="updateBook(\'' + data.list[i].book_id + '\')">更改</button>' +
+                        '<button onclick="deleteBook(\'' + data.list[i].book_id + '\')">删除</button>';
+                }
+                // 清空分页按钮
+                paginationDiv.innerHTML = '';
+                // 重新生成分页按钮
+                for (let i = 1; i <= pages; i++) {
+                    var pageButton = document.createElement('button');
+                    pageButton.textContent = i;
+                    pageButton.style.width = '35px';
+                    pageButton.style.height = '35px';
+                    pageButton.style.margin = '5px';
+                    if (i === currentPage) {
+                        //高亮显示当前页码
+                        pageButton.style.backgroundColor = 'gray';
+                    }
+                    pageButton.addEventListener('click', function() {
+                        currentPage = i;
+                        searchFunction();
+                    });
+                    paginationDiv.appendChild(pageButton);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function updateBook(bookId) {
+        window.location.href = 'manger_book_update.html?bookId=' + bookId;
+        //带着bookid值跳转到更新网页
+    }
+
+    function deleteBook(bookId) {
+        if (confirm('确定要删除这本图书吗？')) {
+            fetch('http://localhost:8080/library/manager/book/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "book_ids": [bookId]
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.data);  //旧版本中此处为data.message,会报错undefined，服务器端返回已修改为 data：插入成功 ，需要进行修改
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    function deleteSelectedBooks() {
+        var checkboxes = document.getElementsByName('selectedBook');
+        var selectedBooks = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedBooks.push(checkboxes[i].value);
+            }
+        }
+        if (selectedBooks.length > 0 && confirm('确定要删除选中的图书吗？')) {
+            fetch('http://localhost:8080/library/manager/book/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "book_ids": selectedBooks
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.data);
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+</script>
+</html>
+
+<!-- 此版本为0529版，所有html文件中日期已删除，便于后续更新 -->

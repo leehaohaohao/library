@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 1vw;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            display: flex;
+            width: 80vw;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .bc {
+            position: relative;
+            width: 80vw;
+            height: 100vh;
+        }
+
+        .borrow {
+            position: relative;
+            width: 75vw;
+            height: 83vh;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            margin: 1vw;
+            overflow-y: scroll;
+
+        }
+
+        .imgg {
+            display: flex;
+            width: 40vh;
+            height: 100%;
+        }
+
+        .imgg img {
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .borrow1 {
+            display: flex;
+            height: 20vh;
+            border-bottom: 0.1vw solid rgba(0, 0, 0, 0.3);
+        }
+
+
+        .font {
+            position: relative;
+            color: black;
+            line-height: 3.3vh;
+            display: inline-block;
+            margin-right: 8vw;
+        }
+
+
+
+
+        button {
+            float: right;
+            border-width: 0.1vw;
+            width: 4vw;
+            height: 4vh;
+            margin: 7vh 1vw;
+        }
+
+        button:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="color:#FFFF;">
+        <div class="content">
+            <div class="space-unit">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel">
+                        <a class="font1" href="library.html">图书馆藏</a>
+                    </div>
+                    <div class="sel" style="background-color: rgba(74, 135, 86, 0.999);">
+                        <a class="font1" href="borrow.html">我的借阅</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="forum.html">图书论坛</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="rank.html">图书排行</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="pc.html">个人中心</a>
+                    </div>
+                    
+            </div>
+            <div class="content3">
+                <div class="bc">
+                    <div class="borrow">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    fetch('http://localhost:8080/library/filter1/person/book/borrowed', {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                data = data.data
+                // console.log(data.length)
+                let borrowElement = document.querySelector('.borrow');
+                for (let i = 0; i < data.length; i++) {
+                    let br = document.createElement("div");
+                    br.className = "borrow1";
+                    br.innerHTML = '<div class="imgg"><img src="' + data[i].book.book_photo + '"></div><div class="font"><p>编号：' + data[i].book.book_id + '</p><p>书名：' + data[i].book.book + '</p><p>作者：' + data[i].book.author.author + '</p><p>出版社：' + data[i].book.press.press + '</p><p>分类：' + data[i].book.category.category + '</p><p>借阅时间：' + data[i].borrow_date + '-' + data[i].borrow_final_date + '</p></div>';
+                    borrowElement.appendChild(br);
+                    let ret = document.createElement("button");
+                    let renew = document.createElement("button");
+                    let lost = document.createElement("button");
+                    ret.className = "button";
+                    renew.className = "button";
+                    lost.className = "button";
+                    ret.dataset.Id = data[i].borrow_id;
+                    renew.dataset.Id = data[i].borrow_id;
+                    lost.dataset.Id = data[i].borrow_id;
+                    ret.textContent = "归还";
+                    renew.textContent = "续借";
+                    lost.textContent = "报失";
+                    br.appendChild(ret);
+                    br.appendChild(renew);
+                    br.appendChild(lost);
+                    ret.addEventListener('click', function () {
+
+                        returnBook(this.dataset.Id);
+                        ret.textContent = "已归还";
+
+                    });
+                    renew.addEventListener('click', function () {
+                        renewBook(this.dataset.Id);
+                        renew.textContent = "已续借";
+
+
+                    });
+                    lost.addEventListener('click', function () {
+                        reportLost(this.dataset.Id);
+                        lost.textContent = "已报失";
+
+                    });
+                }
+
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    function returnBook(id) {
+        var url = 'http://localhost:8080/library/filter1/person/book/borrowed/return?borrow_id=' + encodeURIComponent(id);
+        // 发送归还请求到后端
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function renewBook(id) {
+        var url = 'http://localhost:8080/library/filter1/person/book/borrowed/renew?borrow_id=' + encodeURIComponent(id);
+        // 发送续借请求到后端
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function reportLost(id) {
+        var url = 'http://localhost:8080/library/filter1/person/book/borrowed/lost?borrow_id=' + encodeURIComponent(id);
+        // 发送报失请求到后端
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+</script>
+
+</html>

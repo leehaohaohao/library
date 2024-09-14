@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+
+        }
+
+        .back{
+            margin-top: 30px;
+            margin-left: 1100px;
+        }
+        .back button{
+            font-size: 18px;
+            cursor: pointer; 
+        }
+
+        form {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back">
+        <button onclick="history.back()">返回</button>
+    </div>
+
+    <form class="studentform" id="updateForm" enctype="multipart/form-data">
+        <label for="user_account_num">账号:</label><br>
+        <input type="text" id="user_account_num" name="user_account_num"><br>
+        <label for="name">姓名:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="gender">性别:</label><br>
+        <select id="gender" name="gender">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select><br>
+        <label for="user_num">学号</label><br>
+        <input type="text" id="user_num" name="user_num"><br>
+        <label for="telephone_num">电话号码:</label><br>
+        <input type="text" id="telephone_num" name="telephone_num"><br>
+        <label for="user_photo">照片:</label><br>
+        <input type="file" id="user_photo" name="user_photo"><br>
+        <img id="user_photo_img" src="" alt="User Photo" style="width: 200px;"><br>
+        <label for="email">邮箱:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="fee_all">所欠费用:</label><br>
+        <input type="text" id="fee_all" name="fee_all"><br>
+        <label for="blacklist">黑名单:</label><br>
+        <input type="checkbox" id="blacklist" name="blacklist"><br>
+        <label for="password">密码:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <input type="submit" value="提交">
+    </form>
+
+    <script>
+        var userId = new URLSearchParams(window.location.search).get('userId');
+        window.onload = function () {
+            fetch('http://localhost:8080/library/manager/teacher/select?user_id=' + userId, {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var data = data.data;
+                    document.getElementById('user_account_num').value = data.user_account_num;
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('gender').value = data.gender;
+                    document.getElementById('telephone_num').value = data.telephone_num;
+                    document.getElementById('user_photo_img').src = data.user_photo;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('fee_all').value = data.fee_all;
+                    document.getElementById('blacklist').checked = data.blacklist;
+                    document.getElementById('password').value = '';
+                    document.getElementById('user_num').value = data.user_num;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
+            document.getElementById('user_photo').addEventListener('change', function (event) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('user_photo_img').src = e.target.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            });
+
+            document.getElementById('updateForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var gender = document.getElementById('gender').value;
+                var name = document.getElementById('name').value;
+                var user_num = document.getElementById('user_num').value;
+                var telephone_num = document.getElementById('telephone_num').value;
+                var email = document.getElementById('email').value;
+                var user_account_num = document.getElementById('user_account_num').value;
+                var fee_all = document.getElementById('fee_all').value;
+                var blacklist = document.getElementById('blacklist').value;
+                var password = document.getElementById('password').value;
+
+                if (!name || !user_num || !telephone_num || !email || !user_account_num || !fee_all || !blacklist || !password) {
+                    alert("所有字段都必须填写！");
+                } else {
+
+                    var formdata = new FormData();
+                    formdata.append("user_id", userId);
+                    formdata.append("user_account_num", user_account_num);
+                    formdata.append("password", password);
+                    formdata.append("name", name);
+                    formdata.append("telephone_num", telephone_num);
+                    formdata.append("gender", gender);
+                    formdata.append("email", email);
+                    formdata.append("fee_all", fee_all);
+                    formdata.append("user_num", user_num);
+                    formdata.append("file", document.getElementById('user_photo').files[0]);
+
+                    fetch('http://localhost:8080/library/manager/teacher/update', {
+                        method: 'POST',
+                        body: formdata
+                    })
+                        .then(response => response.json()    
+                        ).then(data => {
+                            alert(data.data);
+                            console.log('Content', data);
+                        }).catch((error) => {
+                            alert(error.message);
+                            console.error('Error:', error);
+                        });
+                }
+            });
+
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- // var user = {
+    //     user_id: userId,
+    //     user_account_num: document.getElementById('user_account_num').value,
+    //     name: document.getElementById('name').value,
+    //     gender: document.getElementById('gender').value,
+    //     telephone_num: document.getElementById('telephone_num').value,
+    //     email: document.getElementById('email').value,
+    //     fee_all: document.getElementById('fee_all').value,
+    //     blacklist: document.getElementById('blacklist').checked,
+    //     password: document.getElementById('password').value
+    // };
+    // var json = JSON.stringify(user);
+    // var blob = new Blob([json], {type: 'application/json'});
+    // var formData = new FormData();
+    // formData.append('user', blob);
+    // formData.append('file', document.getElementById('user_photo').files[0]);
+ -->

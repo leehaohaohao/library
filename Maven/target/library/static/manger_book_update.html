@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>更新</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .back{
+            margin-top: 30px;
+            margin-left: 1100px;
+        }
+        .back button{
+            font-size: 18px;
+            cursor: pointer; 
+        }
+
+        form {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            padding: 45px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    
+</head>
+
+
+<body>
+    
+    <div class="back">
+        <button onclick="history.back()">返回</button>
+    </div>
+        
+    <form id="updateForm" enctype="multipart/form-data">
+        <label for="category">类别:</label>
+        <select id="category" name="category"></select>
+        <label for="book">书名:</label>
+        <input type="text" id="book" name="book">
+        <label for="books">书籍数量:</label>
+        <input type="number" id="books" name="books">
+        <label for="author">作者名字:</label>
+        <input type="text" id="author" name="author">
+        <label for="press">出版社:</label>
+        <input type="text" id="press" name="press">
+        <label for="book_photo">书籍照片:</label>
+        <input type="file" id="book_photo" name="book_photo">
+
+        <img id="book_photo_img" src="" alt="Book Photo" style="width: 100px;"><br>
+
+        <label for="book_money">书籍价值:</label>
+        <input type="number" id="book_money" name="book_money">
+        <label for="bookshelf">书架位置:</label>
+        <input type="text" id="bookshelf" name="bookshelf">
+        <input type="submit" value="提交">
+    </form>
+</body>
+
+
+<script>
+    var bookId = new URLSearchParams(window.location.search).get('bookId');
+    // var bookId = 1;测试时使用
+    window.onload = function () {
+        // 获取所有的类别
+        fetch('http://localhost:8080/library/manager/select/book/category', {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                var categorySelect = document.getElementById('category');
+                data.data.forEach(function (category) {
+                    var option = document.createElement('option');
+                    option.value = category.category_id;
+                    option.text = category.category;
+                    categorySelect.appendChild(option);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        // 获取书籍的信息
+        fetch('http://localhost:8080/library/manager/book/select?book_id=' + bookId, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    //alert(data.success);测试时使用
+                    document.getElementById('book').value = data.data.book;
+                    document.getElementById('author').value = data.data.author.author;
+                    document.getElementById('press').value = data.data.press.press;
+                    document.getElementById('category').value = data.data.category.category_id;
+                    document.getElementById('bookshelf').value = data.data.bookshelf;
+                    document.getElementById('book_money').value = data.data.book_money;
+                    document.getElementById('books').value = data.data.books;
+                    document.getElementById('book_photo_img').src = data.data.book_photo;
+                } else {
+                    alert(data.message);
+                }
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        document.getElementById('book_photo').addEventListener('change', function (event) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('book_photo_img').src = e.target.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var book_id = bookId
+            var category = document.getElementById('category').value;
+            var book = document.getElementById('book').value;
+            var books = document.getElementById('books').value;
+            var author = document.getElementById('author').value;
+            var press = document.getElementById('press').value;
+            var book_money = document.getElementById('book_money').value;
+            var bookshelf = document.getElementById('bookshelf').value;
+
+            var formdata = new FormData();
+                formdata.append("book_id", book_id);
+                formdata.append("category", category);
+                formdata.append("book", book);
+                formdata.append("books", books.toString());
+                formdata.append("author", author);
+                formdata.append("press", press);
+                formdata.append("book_money", book_money);
+                formdata.append("bookshelf", bookshelf);
+                formdata.append("file", document.getElementById('book_photo').files[0]);
+
+            fetch('http://localhost:8080/library/manager/book/update', {
+                method: 'POST',
+                body: formdata
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.data);
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    }
+</script>
+
+</html>
+
+<!-- 成功实现更新无报错 -->

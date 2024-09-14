@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 1vw;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            display: flex;
+            width: 80vw;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .bc {
+            position: relative;
+            left: 1vw;
+            width: 70vw;
+            height: 80vh;
+            /* background-color: rgba(255, 255, 255, 0.999); */
+        }
+
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        #search {
+            border-radius: 1vw;
+            border-width: 0.1vw;
+            position: relative;
+            left: 3vw;
+            width: 50vw;
+            height: 7vh;
+        }
+
+        .sumbit {
+            position: relative;
+            left: 5vw;
+            /* 调整按钮距离容器左侧的距离 */
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 1vw;
+            height: 6vh;
+            width: 7vw;
+            padding: 1vw;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .sumbit:hover {
+            background-color: #45a049;
+        }
+
+        .book {
+            display: flex;
+            /* 将 .book 设置为 Flex 容器 */
+            flex-wrap: wrap;
+            /* 允许项目自动换行 */
+            justify-content: space-between;
+            /* 均匀分布项目 */
+            width: 60vw;
+            height: 70vh;
+            left: 3vw;
+            top: 3vh;
+            position: relative;
+        }
+
+        .bk {
+            position: relative;
+            height: 21vh;
+            width: 18vw;
+            /* 设置 .bk 高度 */
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            /* 添加阴影效果 */
+            display: block;
+        }
+
+        .bk img {
+            display: block;
+            margin: 0 auto;
+            height: 60%;
+        }
+
+        .bk div {
+            margin: auto;
+            border-top: 0.1vh solid rgba(0, 0, 0, 0.3);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            right: 10%;
+        }
+
+        .page-button {
+            width: 3vw;
+            /* 设置按钮宽度 */
+            height: 4vh;
+            margin: 2vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            color: #fff;
+            border: none;
+            border-radius: 1vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-button:hover {
+            background-color: #45a049;
+        }
+
+        .font {
+            color: #45a049;
+            display: block;
+        }
+
+        .sendButton {
+            border-width: 0.1vw;
+            position: relative;
+            bottom: 5vh;
+            left: 12vw;
+            width: 4vw;
+            height: 3vh;
+        }
+
+        .sendButton:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="color:#FFFF ;">
+        <div class="content">
+            <div class="space-unit">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel" style="background-color: rgba(74, 135, 86, 0.999);">
+                        <a class="font1" href="library.html">图书馆藏</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="borrow.html">我的借阅</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="forum.html">图书论坛</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="rank.html">图书排行</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="pc.html">个人中心</a>
+                    </div>
+                </div>
+            </div>
+            <div class="content3">
+                <div class="bc">
+                    <input type="text" id="search" name="query" placeholder="请输入搜索内容">
+                    <button class="sumbit" onclick="pagination()">搜索</button>
+                    <div class="book">
+                    </div>
+                    <div class="button-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    var currentPage = 1;  // 当前页码
+    var paginationDiv = document.querySelector('.button-container'); // 分页按钮容器
+    var pageButton;
+
+    window.onload = function () {
+        pagination();
+    }
+
+    function pagination() {
+        let searchInput = document.getElementById('search');
+        let searchQuery = searchInput.value;
+        // 发送搜索请求到后端
+        fetch(`http://localhost:8080/library/filter1/book/list/search?query=${searchQuery}&page_num=${currentPage}`, {
+            method: 'POST',
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    data = data.data;
+                    var pages = data.pages;
+                    var pageNum = data.pageNum;
+                    // 清空表格
+                    let bookElement = document.querySelector('.book');
+                    bookElement.innerHTML = ''; // 清空书籍元素的内容
+                    // 填充新的数据
+                    for (let i = 0; i < data.list.length; i++) {
+                        let bk = document.createElement("div");
+                        bk.className = "bk";
+                        bk.innerHTML = '<img src="' + data.list[i].book_photo + '"><div class="font"><p>编号：' + data.list[i].book_id + '</p><p>书名：' + data.list[i].book + '</p><p>出版社：' + data.list[i].press.press + '</p></div>';
+                        bookElement.appendChild(bk);
+                        let borrow1 = document.createElement("button");
+                        borrow1.className = "sendButton";
+                        borrow1.textContent = "借阅";
+                        borrow1.dataset.book_id = data.list[i].book_id;
+                        bk.appendChild(borrow1);
+                        console.log(borrow1.dataset.book_id)
+                        borrow1.addEventListener('click', function () {
+                            borrow(this.dataset.book_id);
+                            borrow1.textContent = "已借阅";
+                        });
+                    }
+                    paginationDiv.innerHTML = ''; // 清空分页按钮容器的内容
+                    for (let i = 1; i <= pages; i++) {
+                        pageButton = document.createElement('button');
+                        pageButton.className = "page-button";
+                        pageButton.textContent = i;
+                        if (i === currentPage) {
+                            pageButton.style.backgroundColor = "#45a049";  // 高亮显示当前页码
+                        }
+                        pageButton.addEventListener('click', function () {
+                            currentPage = i;
+                            pagination();
+                        });
+                        paginationDiv.appendChild(pageButton);
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+    function borrow(book_id) {
+        fetch(`http://localhost:8080/library/filter1/book/list/borrow?book_id=${book_id}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error' + error);
+            });
+    }
+</script>

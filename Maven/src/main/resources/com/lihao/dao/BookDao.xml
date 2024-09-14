@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.BookDao">
+    <resultMap id="book_select" type="Book">
+        <result property="book_id" column="book_id"/>
+        <result property="book" column="book"/>
+        <result property="book_photo" column="book_photo"/>
+        <result property="bookshelf" column="bookshelf"/>
+        <result property="book_user_num" column="book_user_num"/>
+        <result property="books" column="books"/>
+        <result property="book_money" column="book_money"/>
+        <association property="author"
+                     select="com.lihao.dao.AuthorDao.select"
+                     column="author_id"/>
+        <association property="press"
+                     select="com.lihao.dao.PressDao.select"
+                     column="press_id"/>
+        <association property="category"
+                     select="com.lihao.dao.CategoryDao.select"
+                     column="category_id"/>
+    </resultMap>
+    <select id="select" resultMap="book_select">
+        select * from t_book where is_delete = 0
+    </select>
+    <select id="select_by_id" resultMap="book_select">
+        select * from t_book
+        where book_id=#{book_id} and is_delete = 0
+    </select>
+
+    <select id="select_rank" resultMap="book_select">
+        select *
+        from t_book
+        where is_delete = 0
+        order by book_user_num desc
+    </select>
+    <select id="select_by_query" resultMap="book_select">
+        select * from t_book
+
+        where t_book.book like  concat('%',#{query},'%') and is_delete = 0
+
+    </select>
+
+    <select id="select_book_by_name" resultMap="book_select">
+        select *
+        from t_book
+        where book=#{book} and is_delete = 0
+    </select>
+    <select id="bc" resultType="BookCategoryNums">
+        select c.category name,count(1) num
+        from t_book b
+        inner join t_category c on c.category_id =  b.category_id
+        GROUP BY c.category_id,c.category
+        ORDER BY num desc
+    </select>
+    <update id="update_books">
+        update t_book set books = #{books} where book_id = #{book_id}
+    </update>
+
+    <update id="update_book_user_num">
+        update  t_book set book_user_num = #{book_user_num} where book_id = #{book_id}
+    </update>
+    <update id="update_book_is_delete_by_id">
+        update t_book set is_delete = #{is_delete} where book_id = #{book_id}
+    </update>
+    <update id="update_book">
+        update t_book
+        <set>
+            <if test="book != null and book != ''">book=#{book},</if>
+            <if test="author != null and author.author_id != null and author.author_id != ''">author_id=#{author.author_id},</if>
+            <if test="press != null and press.press_id != null and press.press_id != ''">press_id=#{press.press_id},</if>
+            <if test="category != null and category.category_id != null and category.category_id != ''">category_id=#{category.category_id},</if>
+            <if test="bookshelf != null and bookshelf != ''">bookshelf=#{bookshelf},</if>
+            <if test="book_money != null and book_money != ''">book_money=#{book_money},</if>
+            <if test="books != null and books != ''">books=#{books},</if>
+            <if test="book_photo !=null and book_photo !=''">book_photo=#{book_photo},</if>
+        </set>
+        where book_id = #{book_id}
+    </update>
+
+
+</mapper>

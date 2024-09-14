@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.NoticeDao">
+    <resultMap id="select_notice" type="Notice">
+        <result property="notice_id" column="notice_id"/>
+        <result property="notice_content" column="notice_content"/>
+        <result property="notice_date" column="notice_date"/>
+        <result property="effective" column="effective"/>
+        <association property="manager"
+                     select="com.lihao.dao.ManagerDao.select_by_id"
+                     column="manager_id"/>
+    </resultMap>
+    <select id="select_notice_all" resultMap="select_notice">
+        select * from t_notice where effective = 1
+    </select>
+    <insert id="publish">
+        insert into t_notice (notice_content,notice_date,manager_id,effective)
+        values (#{notice_content},#{notice_date},#{manager_id},1);
+    </insert>
+</mapper>

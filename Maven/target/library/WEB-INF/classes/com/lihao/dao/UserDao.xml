@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.UserDao">
+    <select id="login_confirm" resultType="String">
+        select password from t_user where user_account_num = #{user_account_num} and is_delete = 0
+    </select>
+
+    <resultMap id="user_select" type="User">
+        <result property="user_account_num" column="user_account_num"/>
+        <result property="password" column="password"/>
+        <result property="user_num" column="user_num"/>
+        <result property="telephone_num" column="telephone_num"/>
+        <result property="gender" column="gender"/>
+        <result property="email" column="email"/>
+        <result property="fee_all" column="fee_all"/>
+        <result property="user_photo" column="user_photo"/>
+        <association property="userCategory"
+                     select="com.lihao.dao.UserCategoryDao.select"
+                     column="user_category_id"/>
+    </resultMap>
+    <sql id="select_all">user_id,password ,user_account_num ,name ,user_num ,telephone_num ,gender ,email ,user_category_id ,fee_all,user_photo</sql>
+    <select id="select" resultMap="user_select">
+        select  <include refid="select_all"/>
+            from t_user
+            where user_account_num=#{user_account_num} and is_delete = 0
+    </select>
+    <select id="sc" resultMap="user_select">
+        select * from t_user where blacklist = 1
+    </select>
+    <select id="select_by_id" resultMap="user_select">
+        select  <include refid="select_all"/>
+        from t_user
+        where user_id = #{user_id} and is_delete = 0
+    </select>
+    <select id="blacklist" resultType="String">
+        select blacklist from t_user where user_id = #{user_id} and is_delete = 0
+    </select>
+    <select id="select_user_id" resultType="Long">
+        select user_id from t_user where user_account_num = #{user_account_num} and is_delete = 0
+    </select>
+    <resultMap id="all_user" type="User">
+        <result property="user_id" column="user_id"/>
+        <result property="user_account_num" column="user_account_num"/>
+        <result property="gender" column="gender"/>
+        <result property="name" column="name"/>
+        <result property="user_num" column="user_num"/>
+        <result property="telephone_num" column="telephone_num"/>
+        <result property="user_photo" column="user_photo"/>
+        <result property="email" column="email"/>
+        <result property="fee_all" column="fee_all"/>
+        <result property="blacklist" column="blacklist"/>
+        <association property="userCategory"
+                     select="com.lihao.dao.UserCategoryDao.select"
+                     column="user_category_id"/>
+    </resultMap>
+    <select id="select_all_student" resultMap="all_user">
+        select user_id,gender,name,user_num,
+               telephone_num,user_photo,email,user_category_id,
+               user_account_num,fee_all,blacklist
+        from t_user
+        where name like concat('%',#{query},'%') and user_category_id = 1 and is_delete = 0
+    </select>
+    <select id="select_all_teacher" resultMap="all_user">
+        select user_id,gender,name,user_num,
+               telephone_num,user_photo,email,user_category_id,
+               user_account_num,fee_all,blacklist
+        from t_user
+        where name like concat('%',#{query},'%') and user_category_id = 2 and is_delete = 0
+    </select>
+    <update id="update">
+        update t_user <set>
+        <if test="email != null and email != ''">email = #{email},</if>
+        <if test="name != null and name != ''">name = #{name},</if>
+        <if test="telephone_num != null and telephone_num != ''">telephone_num = #{telephone_num},</if>
+        <if test="gender != null and gender != ''">gender = #{gender},</if>
+        </set>
+        where user_id = #{user_id}
+    </update>
+    <update id="update_user_fee_all">
+        update t_user set fee_all = #{fee_all} where user_id = #{user_id}
+    </update>
+
+
+    <update id="update_user">
+        update t_user <set>
+        <if test="user_num != null and user_num != ''">user_num = #{user_num},</if>
+        <if test="password != null and password != ''">password = #{password},</if>
+        <if test="email != null and email != ''">email = #{email},</if>
+        <if test="name != null and name != ''">name = #{name},</if>
+        <if test="telephone_num != null and telephone_num != ''">telephone_num = #{telephone_num},</if>
+        <if test="gender != null and gender != ''">gender = #{gender},</if>
+        <if test="user_account_num !=null and user_account_num !=''">user_account_num=#{user_account_num},</if>
+        <if test="fee_all!=null and fee_all !=''">fee_all=#{fee_all},</if>
+        <if test="blacklist!=null and blacklist !=''">blacklist=#{blacklist},</if>
+        <if test="user_photo !=null and user_photo !=''">user_photo=#{user_photo}</if>
+    </set>
+        where user_id = #{user_id}
+    </update>
+</mapper>

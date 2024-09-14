@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 1.5vw;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            display: flex;
+            width: 80vw;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .title {
+            height: 15vh;
+            line-height: 15vh;
+            border-bottom: 0.1vw solid #4b4b4b;
+            display: flex;
+            align-items: center;
+        }
+
+        .title img {
+            width: 8vw;
+            /* 设置图片宽度 */
+            height: auto;
+            margin-right: 1vw;
+            /* 调整图片和文本之间的间距 */
+        }
+
+        .title span {
+            color: #2b333b;
+            font-size: 2vw;
+            width: 50vw;
+        }
+
+        .tab-menu {
+            position: relative;
+            height: 8vh;
+            line-height: 8vh;
+            width: 50vw;
+        }
+
+        .tab-menu li {
+            list-style-type: none;
+            display: inline-block;
+            margin-right: 4vw;
+            /* 设置合适的右边距 */
+            color: #2b333b;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-menu li:hover {
+            border-bottom: 0.5vh solid red;
+            /* 鼠标悬停时底部出现红色线 */
+        }
+
+        .borrow {
+            position: relative;
+            width: 70vw;
+            height: 58vh;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            margin: 1vw;
+            overflow-y: scroll;
+
+        }
+
+        .borrow img {
+            display: block;
+            float: left;
+            /* 将图片向左浮动 */
+            height: 100%;
+            margin: 0 2vw;
+        }
+
+        .borrow1 {
+            font-size: 1.3vw;
+            height: 8vh;
+            line-height: 8vh;
+            border-bottom: 0.1vw solid rgba(0, 0, 0, 0.3);
+        }
+
+
+
+        button {
+            display: block;
+            font-size: 1vw;
+            width: 5vw;
+            height: 3.2vh;
+            margin: auto;
+            margin-top: 0.5vh;
+            border-width: 0.1vw;
+            background-color: #FFFF;
+        }
+
+        button:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #borrowTable {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 1vw;
+        }
+
+        #borrowTable img {
+            width: 5vw;
+            height: 10vh;
+            display: block;
+            margin: auto;
+        }
+
+        #borrowTable th,
+        #borrowTable td {
+            border: 0.1vw solid black;
+            height: 5vh;
+        }
+
+        #borrowTable tr:nth-child(odd) {
+            background-color: white;
+            /* 设置奇数行背景色为白色 */
+        }
+
+        #borrowTable tr:nth-child(even) {
+            background-color: rgba(146, 192, 155, 0.999);
+            /* 设置偶数行背景色为灰色 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="content">
+            <div class="space-unit" style="color:#FFFF ;">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel">
+                        <a class="font1" href="library.html">图书馆藏</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="borrow.html">我的借阅</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="forum.html">图书论坛</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="rank.html">图书排行</a>
+                    </div>
+                    <div class="sel" style="background-color: rgba(74, 135, 86, 0.999);">
+                        <a class="font1" href="pc.html">个人中心</a>
+                    </div>
+                </div>
+            </div>
+            <div class="content3">
+                <div class="title">
+                    <img src="https://i.chaoxing.com/nervous/images/tongxunlu.png" alt="账号管理">
+                    <span>账号管理</span>
+                </div>
+                <div class="tab-menu">
+                    <ul>
+                        <li onclick="window.location.href='pc.html'">基本信息</li>
+                        <li onclick="window.location.href='pay.html'">费用查询</li>
+                        <li onclick="window.location.href='update.html'">修改信息</li>
+                    </ul>
+                </div>
+                <div class="borrow">
+                    <table id="borrowTable">
+                        <tbody>
+                            <tr>
+                                <th>书名</th>
+                                <th>费用类型</th>
+                                <th>费用数额</th>
+                                <th>操作</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    fetch('http://localhost:8080/library/filter1/fee/select?page_num=1', {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            var table = document.getElementById("borrowTable");
+            // 清空表格
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            var pages = data.data.pages;
+            var data = data.data;
+
+            // 填充新的数据
+            for (var i = 0; i < data.list.length; i++) {
+                var row = table.insertRow(-1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                row.style.textAlign = "center";
+                cell1.innerHTML = data.list[i].book;
+                cell2.innerHTML = data.list[i].feeCategory.fee_category;
+                cell3.innerHTML = data.list[i].fee_num;;
+                cell4.innerHTML = '<button onclick="payFee(\'' + data.list[i].fee_id + '\')">支付</button>';
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    function payFee(fee_id) {
+        fetch(`http://localhost:8080/library/filter1/fee/pay?fee_id=${fee_id}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.data);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error' + error);
+            });
+    }
+</script>
+
+</html>

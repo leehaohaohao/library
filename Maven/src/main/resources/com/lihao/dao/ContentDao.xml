@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.ContentDao">
+    <resultMap id="content_select_all" type="Content">
+        <id property="content_id" column="content_id"/>
+        <result property="content" column="content"/>
+        <result property="like_num" column="like_num"/>
+        <result property="publish_date" column="publish_date"/>
+        <association property="user"
+                     select="com.lihao.dao.UserDao.select_by_id"
+                     column="user_id"/>
+        <association property="userCategory"
+                     select="com.lihao.dao.UserCategoryDao.select"
+                     column="user_category_id"/>
+    </resultMap>
+    <select id="select_all" resultMap="content_select_all">
+        select * from t_content
+    </select>
+    <insert id="insert">
+        insert into t_content (content,publish_date,like_num,user_id,user_category_id)
+        value (#{content},#{publish_date},#{like_num},#{user_id},#{user_category_id})
+    </insert>
+
+    <select id="select_like" resultType="Long">
+        select like_num from t_content where content_id=#{content_id}
+    </select>
+    <update id="update_like">
+        update t_content set like_num = #{like_num} where content_id = #{content_id}
+    </update>
+</mapper>

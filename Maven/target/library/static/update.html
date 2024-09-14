@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 1.5vw;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(" ")no-repeat;
+            background-size: cover;
+            background-position: top;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-size: 2vw;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            width: 100vw;
+            /* 设置内容宽度 */
+            height: 10vh;
+            /* 设置内容高度 */
+            background-color: rgba(97, 180, 114, 0.999);
+            border-radius: 2vw 2vw 0 0;
+            margin-bottom: 3vh;
+        }
+
+        .content1 {
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.999);
+        }
+
+        .content2 {
+            display: flex;
+            margin: 0 2vw;
+            width: 20vw;
+            height: 100vh;
+        }
+
+        .content3 {
+            display: flex;
+            width: 80vw;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .menu {
+            display: flex;
+            width: 15vw;
+            height: 85vh;
+            border-radius: 1vw;
+            background-color: rgba(97, 180, 114, 0.999);
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+        }
+
+        .content .space-unit {
+            /* width: 220px; */
+            float: left;
+            line-height: 10vh;
+            display: flex;
+            align-items: cenvhter;
+            margin-left: 5%
+        }
+
+        .sel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2vh 0;
+            height: 10vh;
+            width: 15vw;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .sel:hover {
+            background-color: rgba(74, 135, 86, 0.999);
+        }
+
+        a.font1 {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 1.5vw;
+        }
+
+        a {
+            text-decoration: none;
+            /* 取消下划线 */
+            color: inherit;
+            /* 继承父元素的文字颜色 */
+            cursor: pointer
+        }
+
+        .title {
+            height: 15vh;
+            line-height: 15vh;
+            border-bottom: 0.1vw solid #4b4b4b;
+            display: flex;
+            align-items: center;
+        }
+
+        .title img {
+            width: 8vw;
+            /* 设置图片宽度 */
+            height: auto;
+            margin-right: 1vw;
+            /* 调整图片和文本之间的间距 */
+        }
+
+        .title span {
+            color: #2b333b;
+            font-size: 2vw;
+            width: 50vw;
+        }
+
+        .tab-menu {
+            position: relative;
+            height: 8vh;
+            line-height: 8vh;
+            width: 50vw;
+        }
+
+        .tab-menu li {
+            list-style-type: none;
+            display: inline-block;
+            margin-right: 4vw;
+            /* 设置合适的右边距 */
+            color: #2b333b;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-menu li:hover {
+            border-bottom: 0.5vh solid red;
+            /* 鼠标悬停时底部出现红色线 */
+        }
+
+        .infodiv {
+            display: flex;
+            margin-top: 5vh;
+            flex-direction: column;
+        }
+
+        .info_ct {
+            margin: 2vh 0;
+            line-height: 3vh;
+            color: #181E33;
+        }
+
+        .wid62 {
+            display: inline-block;
+            width: 8vw;
+        }
+
+        .grey {
+            position: relative;
+            background-color: rgba(216, 212, 212, 0.3);
+            width: 100%;
+            height: 30px;
+            top: 15%;
+            border-radius: 0.1vw;
+        }
+
+        .infodiv label {
+            display: block;
+            color: #181E33;
+            line-height: 10vh;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1vh;
+        }
+
+        .input-field {
+            border-width: 0.1vw;
+            margin-left: 1vw;
+            width: 20vw;
+        }
+
+        .submitbutton {
+            width: 5vw;
+            margin-left: 1vw;
+            border-width: 0.1vw;
+        }
+
+        .form-row input[type="radio"] {
+            appearance: none;
+            outline: none;
+            width: 1.5vw;
+            border-radius: 50%;
+            height: 1.5vw;
+            border: 0.2vw solid #ccc;
+            margin: 1vw;
+        }
+
+        .form-row input[type="radio"]:checked {
+  background-color: lightgray; 
+}
+    </style>
+</head>
+
+<body>
+    <div class="container" style="color:#FFFF ;">
+
+        <div class="content">
+            <div class="space-unit">
+                <h2>图书管理系统</h2>
+            </div>
+        </div>
+        <div class="content1">
+            <div class="content2">
+                <div class="menu">
+
+                    <div class="sel">
+                        <a class="font1" href="library.html">图书馆藏</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="borrow.html">我的借阅</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="forum.html">图书论坛</a>
+                    </div>
+                    <div class="sel">
+                        <a class="font1" href="rank.html">图书排行</a>
+                    </div>
+                    <div class="sel" style="background-color: rgba(74, 135, 86, 0.999);">
+                        <a class="font1" href="pc.html">个人中心</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content3">
+                <div class="title">
+                    <img src="https://i.chaoxing.com/nervous/images/tongxunlu.png" alt="账号管理">
+                    <span>账号管理</span>
+                </div>
+                <div class="tab-menu">
+                    <ul>
+                        <li onclick="window.location.href='pc.html'">基本信息</li>
+                        <li onclick="window.location.href='pay.html'">费用查询</li>
+                        <li onclick="window.location.href='password.html'">修改信息</li>
+                    </ul>
+                </div>
+                <div class="infodiv">
+                    <form>
+                        <div class="form-row">
+                            <label for="name">修改姓名：</label>
+                            <input type="text" id="name" name="name" class="input-field" placeholder="请输入新姓名">
+                            <input type="submit" value="提交" class="submitbutton">
+                        </div>
+                        <div class="form-row">
+                            <label for="email">修改邮箱：</label>
+                            <input type="text" id="email" name="email" class="input-field" placeholder="请输入新邮箱">
+                            <input type="submit" value="提交" class="submitbutton">
+                        </div>
+                        <div class="form-row">
+                            <label for="phone">修改手机号：</label>
+                            <input type="text" id="phone" name="phone" class="input-field" placeholder="请输入新号码">
+                            <input type="submit" value="提交" class="submitbutton">
+                        </div>
+                        <div class="form-row">
+                            <label>修改性别：</label>
+                            <input type="radio" id="male" name="gender" value="男">
+                            <label for="male">男</label>
+                            <input type="radio" id="female" name="gender" value="女">
+                            <label for="female">女</label>
+                            <input type="submit" value="提交" class="submitbutton">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+let form = document.querySelector('form');
+
+// 监听表单提交事件
+form.addEventListener('submit', function(event) {
+    // 阻止表单默认提交行为
+    event.preventDefault();
+
+    // 获取表单字段的值
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let telephone_num = document.getElementById('phone').value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let newGender = gender ? gender.value : '';
+
+    fetch(`http://localhost:8080/library/filter1/person/update?email=${email}&gender=${newGender}&telephone_num=${telephone_num}&name=${name}`, {
+        method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+        alert(data.data)
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        // 在这里处理网络请求错误，如显示错误消息或执行其他操作
+    })
+    .finally(() => {
+        // 清空表单字段
+        form.reset();
+    });
+});
+
+</script>
+
+</html>

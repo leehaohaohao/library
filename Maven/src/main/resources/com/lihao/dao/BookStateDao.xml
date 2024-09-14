@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihao.dao.BookStateDao">
+    <select id="select" resultType="BookState">
+        select * from t_book_state where book_state = #{book_state}
+    </select>
+    <select id="select_by_id" resultType="BookState">
+        select * from t_book_state where book_state_id = #{book_state_id}
+    </select>
+</mapper>
